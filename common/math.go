@@ -1,0 +1,83 @@
+package common
+
+import (
+	"math"
+	"strconv"
+)
+
+func IsPalindrome(str string) bool {
+	for x := 0; x < len(str)/2; x++ {
+		if str[x] != str[len(str)-x-1] {
+			return false
+		}
+	}
+	return true
+}
+
+func IsPalindromeNum(num int) bool {
+	str := strconv.Itoa(num)
+	return IsPalindrome(str)
+}
+
+func IsPrime(num int) bool {
+	upto := int(math.Sqrt(float64(num))) + 1
+	for x := 2; x < upto; x++ {
+		if num%x == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func IsOdd(num int) bool {
+	return num%2 == 1
+}
+
+func IsEven(num int) bool {
+	return num%2 == 0
+}
+
+func genPrimesToNum(numMax int, output chan<- int) {
+	for x := 2; x <= numMax; x++ {
+		if IsPrime(x) {
+			output <- x
+		}
+	}
+	close(output)
+}
+
+func PrimeFactorization(num int) []int {
+	factors := make([]int, 0)
+	c := make(chan int)
+
+	go genPrimesToNum(num, c)
+	for x := range c {
+		if num == 1 {
+			break
+		}
+
+		for num%x == 0 {
+			factors = append(factors, x)
+			num = num / x
+		}
+	}
+	return factors
+}
+
+func PrimeFactorizationMap(num int) map[int]int {
+	factors := make(map[int]int)
+	c := make(chan int)
+	go genPrimesToNum(num, c)
+	for x := range c {
+		if num == 1 {
+			break
+		}
+
+		for num%x == 0 {
+			factors[x]++
+			num = num / x
+		}
+	}
+
+	return factors
+}
