@@ -5,6 +5,14 @@ import (
 	"strconv"
 )
 
+func Pow(n int, e int) int {
+	product := 1
+	for x := 0; x < e; x++ {
+		product *= n
+	}
+	return product
+}
+
 func IsPalindrome(str string) bool {
 	for x := 0; x < len(str)/2; x++ {
 		if str[x] != str[len(str)-x-1] {
@@ -17,6 +25,10 @@ func IsPalindrome(str string) bool {
 func IsPalindromeNum(num int) bool {
 	str := strconv.Itoa(num)
 	return IsPalindrome(str)
+}
+
+func Sqrt(num int) int {
+	return int(math.Sqrt(float64(num)))
 }
 
 func IsPrime(num int) bool {
