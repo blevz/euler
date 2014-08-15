@@ -49,6 +49,14 @@ func IsEven(num int) bool {
 	return num%2 == 0
 }
 
+func Max_int2(num1, num2 int) int {
+	if num1 > num2 {
+		return num1
+	} else {
+		return num2
+	}
+}
+
 func genPrimesToNum(numMax int, output chan<- int) {
 	for x := 2; x <= numMax; x++ {
 		if IsPrime(x) {
