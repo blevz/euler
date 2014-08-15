@@ -57,6 +57,10 @@ func Max_int2(num1, num2 int) int {
 	}
 }
 
+func GenPrimes(output chan<- int) {
+	genPrimesToNum(int(math.MaxInt32), output)
+}
+
 func genPrimesToNum(numMax int, output chan<- int) {
 	for x := 2; x <= numMax; x++ {
 		if IsPrime(x) {
