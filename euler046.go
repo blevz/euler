@@ -38,6 +38,7 @@ func main() {
 			c, a, b := Check(primes, dubSquare, x)
 			if !c {
 				fmt.Println(x, a, b)
+				return
 			}
 		}
 	}
