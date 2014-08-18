@@ -61,6 +61,10 @@ func GenPrimes(output chan<- int) {
 	genPrimesToNum(int(math.MaxInt32), output)
 }
 
+func GenPrimesToNum(numMax int, output chan<- int) {
+	genPrimesToNum(numMax, output)
+}
+
 func genPrimesToNum(numMax int, output chan<- int) {
 	for x := 2; x <= numMax; x++ {
 		if IsPrime(x) {
@@ -104,4 +108,12 @@ func PrimeFactorizationMap(num int) map[int]int {
 	}
 
 	return factors
+}
+
+func NumDigits(x int) int {
+	numDig := 0
+	for ; x != 0; x /= 10 {
+		numDig++
+	}
+	return numDig
 }
