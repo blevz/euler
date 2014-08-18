@@ -1,8 +1,8 @@
 package main
 
 import (
-	"encoding/csv"
 	"fmt"
+	"github.com/blevz/euler/common"
 	"os"
 	"sort"
 )
@@ -17,19 +17,11 @@ func GetStringVal(str string) int {
 
 func main() {
 
-	file, err := os.Open("euler022_data.txt")
-	defer file.Close()
+	strArr := sort.StringSlice{}
+	strArr, err := common.GetAllCSVStrings("euler022_data.txt")
 	if err != nil {
-		fmt.Println(err)
 		os.Exit(1)
 	}
-	strArr := sort.StringSlice{}
-	reader := csv.NewReader(file)
-	strArr, err = reader.Read()
-	if err != nil {
-		fmt.Println(err)
-	}
-
 	strArr.Sort()
 	sum := 0
 	for i, v := range strArr {

@@ -1,5 +1,11 @@
 package common
 
+import (
+	"encoding/csv"
+	"fmt"
+	"os"
+)
+
 func genPerms(q []byte, s []byte, output chan<- string) {
 	size := len(q)
 	if size == 0 {
@@ -21,4 +27,20 @@ func ProducePermutations(starting string, output chan<- string) {
 	s := []byte("")
 	genPerms(q, s, output)
 	close(output)
+}
+
+func GetAllCSVStrings(pathname string) ([]string, error) {
+	file, err := os.Open(pathname)
+	defer file.Close()
+	if err != nil {
+		fmt.Println(err)
+		return []string{}, err
+	}
+	reader := csv.NewReader(file)
+	strArr, err := reader.Read()
+	if err != nil {
+		fmt.Println(err)
+		return []string{}, err
+	}
+	return strArr, nil
 }

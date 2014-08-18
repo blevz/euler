@@ -23,7 +23,6 @@ func ReadLinesAndAppendStrings(path string) string {
 func produceProductOfChar(str string, numChar int, output chan<- int) {
 
 	for x := 0; x < len(str)-numChar; x++ {
-		fmt.Println("test", str[x]-'0')
 		product := 1
 		for y := 0; y < numChar; y++ {
 			product = product * int(str[y+x]-'0')
