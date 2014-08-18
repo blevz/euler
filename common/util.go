@@ -44,3 +44,11 @@ func GetAllCSVStrings(pathname string) ([]string, error) {
 	}
 	return strArr, nil
 }
+
+func GetStringVal(str string) int {
+	sum := 0
+	for _, r := range str {
+		sum += int(r - 'A' + 1)
+	}
+	return sum
+}
