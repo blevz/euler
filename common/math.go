@@ -5,6 +5,10 @@ import (
 	"strconv"
 )
 
+var (
+	PrimeDataStore map[int]struct{} = make(map[int]struct{}, 0)
+)
+
 func Pow(n int, e int) int {
 	product := 1
 	for x := 0; x < e; x++ {
@@ -67,8 +71,14 @@ func GenPrimesToNum(numMax int, output chan<- int) {
 
 func genPrimesToNum(numMax int, output chan<- int) {
 	for x := 2; x <= numMax; x++ {
-		if IsPrime(x) {
+		_, exists := PrimeDataStore[x]
+		if exists {
 			output <- x
+		} else {
+			if IsPrime(x) {
+				PrimeDataStore[x] = struct{}{}
+				output <- x
+			}
 		}
 	}
 	close(output)
@@ -100,7 +110,6 @@ func PrimeFactorizationMap(num int) map[int]int {
 		if num == 1 {
 			break
 		}
-
 		for num%x == 0 {
 			factors[x]++
 			num = num / x
@@ -116,4 +125,12 @@ func NumDigits(x int) int {
 		numDig++
 	}
 	return numDig
+}
+
+func Factorial(num int) int {
+	product := 1
+	for x := 2; x <= num; x++ {
+		product *= x
+	}
+	return product
 }
