@@ -35,6 +35,18 @@ func Sqrt(num int) int {
 	return int(math.Sqrt(float64(num)))
 }
 
+func IsPrimeWithDataStore(num int) bool {
+	_, exists := PrimeDataStore[num]
+	if exists {
+		return true
+	} else {
+		if IsPrime(num) {
+			return true
+		}
+	}
+	return false
+}
+
 func IsPrime(num int) bool {
 	upto := int(math.Sqrt(float64(num))) + 1
 	for x := 2; x < upto; x++ {
